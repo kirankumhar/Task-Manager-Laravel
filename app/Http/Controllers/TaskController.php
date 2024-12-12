@@ -51,4 +51,15 @@ class TaskController extends Controller
         $tasks = Task::all();
         return response()->json($tasks);
     }
+
+    public function markAsCompleted($id)
+    {
+        $task = Task::find($id);
+        if($task){
+            $task->completed = true;
+            $task->save();
+            return response()->json(['message' => 'Task marked as complete']);
+        }
+        return response()->json(['message' => 'Task not found'], 404);
+    }
 }
